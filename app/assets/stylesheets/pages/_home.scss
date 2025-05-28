@@ -9,17 +9,40 @@
   z-index: -100;
   transform: translateX(-50%) translateY(-50%);
 }
-
-.hero-wrapper {
-  height: 100vh;
-}
-
-.jersey-10-regular {
+.three-d-text {
   font-family: "Jersey 10", sans-serif;
-  font-weight: 400;
+  font-weight: bold;
   font-style: normal;
   color: white;
   font-size: 5rem;
   text-align: center;
   padding-top: 120px;
+
+  text-shadow:
+    1px 1px 0 #ccc,
+    2px 2px 0 #bbb,
+    3px 3px 0 #aaa,
+    4px 4px 0 #999,
+    5px 5px 0 #888,
+    6px 6px 0 #777;
+  animation: shake 0.8s infinite;
+  display: inline-block;
+  perspective: 500px;
+}
+
+@keyframes shake {
+  0% { transform: rotateX(10deg) rotateY(5deg) translate(0, 0) rotate(0deg); }
+  20% { transform: rotateX(10deg) rotateY(5deg) translate(-2px, 2px) rotate(-1deg); }
+  40% { transform: rotateX(10deg) rotateY(5deg) translate(-1px, -2px) rotate(1deg); }
+  60% { transform: rotateX(10deg) rotateY(5deg) translate(2px, 1px) rotate(0deg); }
+  80% { transform: rotateX(10deg) rotateY(5deg) translate(1px, -1px) rotate(1deg); }
+  100% { transform: rotateX(10deg) rotateY(5deg) translate(0, 0) rotate(-1deg); }
+}
+
+.start-hover:hover {
+  color: #ffcc00;
+  text-shadow: 0 0 8px #ffcc00;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
