@@ -135,10 +135,10 @@ begin
     puts "Seeded #{cognifit_games.size} Cognifit games."
   end
 rescue => e
-  puts "⚠️ Failed to fetch Cognifit games: #{e.message}"
+  puts " Failed to fetch Cognifit games: #{e.message}"
 end
 
-puts "Total games: #{Game.count}"
+# puts "Total games: #{Game.count}"
 
 # Create targets
 puts "Creating targets..."

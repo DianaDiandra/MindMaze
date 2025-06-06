@@ -125,4 +125,22 @@ class PerformancesController < ApplicationController
       :game_id
     )
   end
+
+  def statistics
+    # Fetch performances that are linked to targets with sleep data
+    data = Performance.joins(:target)
+                      .where.not(accuracy: nil)
+                      .where.not(targets: { sleep: nil })
+                      .pluck('targets.sleep', 'performances.accuracy')
+
+    if data.any?
+      grouped = data.group_by(&:first)
+      @sleep_distribution = grouped.transform_values do |vals|
+        (vals.map(&:second).sum / vals.size.to_f).round(2)
+      end
+    else
+      @sleep_distribution = nil
+    end
+  end
+
 end

@@ -46,6 +46,11 @@ gem "solid_cache"
 gem "solid_queue"
 gem 'httparty'
 
+gem "chartkick"
+gem "groupdate"
+gem "highcharts-rails"
+
+
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
