@@ -38,11 +38,6 @@
   <%= link_to "🔙 Dashboard", root_path, class: "#{dashboard_button_class} px-6 py-3" %>
 </div>
 
-<div class="mt-4 text-center" data-controller="game-descriptions">
-
-  <div class="mt-4 text-center" data-controller="modal">
-
-
 <% banner_image = case @goal.name %>
 <% when "Reasoning" %>
   <% "https://res.cloudinary.com/dtyuldook/image/upload/v1749135089/reasoning_lkjg4m.jpg" %>
@@ -52,23 +47,21 @@
   <% "https://res.cloudinary.com/dtyuldook/image/upload/v1749135091/time_x6aj7u.jpg" %>
 <% end %>
 
-<%# <h1 class="my-font text-4xl font-bold goal-heading">Games for: <%= @goal.name %>
-<%# <h1 class="my-font text-4xl font-bold mb-6 text-dark">Games for: <%= @goal.name %>
-<div class="relative mb-8" style="height: 180px; margin-bottom: 180px;">
-  <img src="<%= banner_image %>"
-       alt="Banner Background"
-       style="object-fit: cover; width: 100%; height: 100%; border-radius: 12px;">
-
+<div class="mt-4 text-center" data-controller="game-descriptions">
+  <!-- Banner Section -->
+  <div class="relative mb-8" style="height: 180px; margin-bottom: 180px;">
+    <img src="<%= banner_image %>"
+         alt="Banner Background"
+         style="object-fit: cover; width: 100%; height: 100%; border-radius: 12px;">
 
     <div class="absolute inset-0 flex items-center justify-center">
       <h1 class="my-font text-4xl font-bold text-white bg-black bg-opacity-60 px-6 py-3 rounded">
-        Games for:
-        <%= @goal.name %>
+        Games for: <%= @goal.name %>
       </h1>
     </div>
   </div>
 
-
+  <!-- Games List -->
   <div class="container mx-auto px-4">
     <% if @games.any? %>
       <div class="game-cards mt-5">
@@ -82,6 +75,7 @@
                           end
           %>
           <div class="game-card-container relative mb-8">
+            <!-- Game Card -->
             <div class="game-card-category rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300"
                  style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= game.image_url.presence || "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.creativefabrica.com%2Fwp-content%2Fuploads%2F2023%2F07%2F04%2FCute-Brain-Exercising-With-A-Dumbell-73676685-1.png" %>'); position: relative;">
               <div class="absolute top-4 left-0 right-0 text-center">
@@ -99,48 +93,76 @@
                 </h2>
               </div>
 
-              <%= link_to "", target_game_path(@target, game),
-              id: "games-index-btn",
-              class: "play-btn",
-              style: "transform: translateY(-65%);" %>
+              <%= link_to "", target_game_path(@target, game), id: "games-index-btn", class: "play-btn", style: "transform: translateY(-65%);" %>
             </div>
 
+            <!-- Description Button -->
             <div class="absolute bottom-4 left-0 right-0 text-center">
-              <button class="<%= button_class %> px-4 py-2 text-sm transition description-btn"
+              <button class="<%= button_class %> px-4 py-2 text-sm description-btn"
                       data-action="click->game-descriptions#showInfo"
                       data-game-id="<%= game.id %>">
                 See Description
               </button>
             </div>
 
-
-            <div class="description-card hidden absolute left-0 right-0 z-10 bg-white p-6 rounded-lg shadow-xl mt-2"
+            <!-- Description Card (initially hidden) -->
+            <div class="description-card hidden absolute left-0 right-0 z-10 bg-purple-700 bg-opacity-90 p-6 rounded-lg shadow-xl mt-2 text-white"
                  data-game-descriptions-target="info"
                  data-game-id="<%= game.id %>">
               <div class="flex justify-between items-start mb-2">
-                <h3 class="text-lg font-bold text-gray-800">
-                  <%= game.name %>
-                </h3>
-                <button class="close-description text-gray-500 hover:text-gray-700 transition"
+                <h3 class="text-lg font-bold"><%= game.name %></h3>
+                <button class="close-description text-white hover:text-gray-200 transition"
                         data-action="click->game-descriptions#hideInfo"
                         aria-label="Close description">
                   ✕
                 </button>
               </div>
-              <p class="text-gray-700">
-                <%= game.description %>
-              </p>
+              <p class="text-white"><%= game.description %></p>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
-      <p class="text-gray-700 text-xl mt-10">
-        No games found for this goal yet 🥲.
-      </p>
+      <p class="text-gray-700 text-xl mt-10">No games found for this goal yet 🥲.</p>
     <% end %>
   </div>
 </div>
+
+<!-- Temporary debug script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("Checking Stimulus setup...");
+  if (typeof application === 'undefined') {
+    console.error("Stimulus application not defined!");
+  } else {
+    console.log("Found Stimulus application");
+    application.controllers.forEach(c => {
+      console.log(`Controller: ${c.identifier} connected to:`, c.element);
+    });
+  }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("Stimulus debug:");
+
+  // Check if Stimulus is loaded
+  if (typeof window.Stimulus === 'undefined') {
+    console.error("Stimulus is not loaded!");
+  } else {
+    console.log("Stimulus version:", Stimulus.application.schema.version);
+  }
+
+  // Check if controller is registered
+  const controllers = Array.from(document.querySelectorAll('[data-controller]'));
+  console.log("Found controllers:", controllers);
+
+  controllers.forEach(controller => {
+    console.log(`Controller "${controller.dataset.controller}" attached to:`, controller);
+  });
+});
+</script>
 
 
 

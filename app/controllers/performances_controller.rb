@@ -3,8 +3,12 @@ class PerformancesController < ApplicationController
   before_action :set_target
   before_action :set_performance, only: [:show]
 
+  helper PerformancesHelper
+  
   def index
-    @performances = @target.performances.includes(:game)
+  @target = Target.find(params[:target_id])
+  @performances = @target.performances.includes(:game).order(created_at: :desc)
+  # @performances = @target.performances.includes(:game)
   end
 
   def new

@@ -36,7 +36,11 @@ export default class extends Controller {
 
     if (event.data.type === "bestScore") {
       // console.log(`Best score ${event.data.value}`)
-      this.scoreValue = event.data.value
+
+      // THIS IS THE RIGHT ACTION WE WANT BUT BCZ WE HAVE THE LAST SCORE AND NOT THE FINAL SCORE WE WANT TO HARDCODE IT
+      // this.scoreValue = event.data.value
+      // HARDCODED FOR NOW
+      this.scoreValue = 10000;
       // console.log(TARGET)
       TARGET.value = event.data.value;
       // console.log(TARGET.value)

@@ -10,6 +10,15 @@
   </div>
 
   <div class="mb-3">
+    <%= f.input :final_score, label: "Final Score", input_html: {
+      class: "form-control",
+      value: 10000,
+      readonly: true,
+      disabled: true
+    } %>
+  </div>
+
+  <div class="mb-3">
     <%= f.input :score, label: "Best Score", input_html: { class: "form-control", data: { game_target: "score" } } %>
   </div>
 
@@ -18,7 +27,7 @@
   </div>
 
   <div class="mb-3">
-    <%= f.input :accuracy, label: "Accuracy (%)", input_html: { class: "form-control", data: { game_target: "percentage" } } %>
+    <%= f.input :accuracy, label: "Progress %", input_html: { class: "form-control", data: { game_target: "percentage" } } %>
   </div>
 
   <div class="mb-3">

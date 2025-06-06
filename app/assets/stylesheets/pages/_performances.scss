@@ -1,0 +1,18 @@
+.bg-purple {
+  background-color: rgba(119, 70, 174, 0.9);
+  backdrop-filter: blur(6px);
+  border-radius: 0.75rem;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,64 @@
+<% bg_color, text_color =
+  case performance.game.goal.name.downcase
+  when "reasoning" then ["#e8dcf6", "#763d9c"]
+  when "time reaction" then ["#fff9d6", "#bca203"]
+  when "logic" then ["#d6f5dc", "#2d8144"]
+  else ["#f8f9fa", "#333"]
+  end
+%>
+
+<div class="card mb-4 border border-dark rounded shadow fade-in" style="background-color: <%= bg_color %>; color: <%= text_color %>;">
+  <% if performance.game.image_url.present? %>
+    <div class="position-relative">
+      <!-- Game image -->
+      <img src="<%= performance.game.image_url %>" class="card-img-top img-fluid"
+           style="object-fit: cover; height: 250px; border-bottom: 2px solid black;">
+
+      <!-- Date badge positioned above image -->
+      <div class="position-absolute top-0 start-50 translate-middle-x" style="transform: translateY(-50%);">
+        <span class="px-3 py-1 bg-dark text-white rounded shadow">
+          <%= performance.created_at.strftime("%A, %b %d") %>
+        </span>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card-body">
+    <%# <h5 class="card-title fw-bold mb-3"><%= performance.game.name %>
+
+    <p><strong>Description:</strong>
+      <span style="color: <%= text_color %>;">
+        <%= performance.description.presence || "No notes" %>
+      </span>
+    </p>
+
+    <!-- Final Score / Last Score box -->
+    <div class="p-3 rounded mb-3" style="background: rgba(0, 0, 0, 0.5); color: white;">
+      <p class="mb-1"><strong>Final Score:</strong> 10,000</p>
+      <p class="mb-0"><strong>Last Score:</strong> <%= performance.score %></p>
+    </div>
+
+    <!-- Sleep & Progress box -->
+    <div class="p-3 rounded mb-3" style="background: rgba(0, 0, 0, 0.5); color: white;">
+      <p class="mb-1"><strong>Sleep:</strong> <%= performance.target.sleep || "N/A" %>h</p>
+
+      <% if performance.accuracy %>
+        <p class="mb-1"><strong>Progress:</strong> <%= "#{performance.accuracy.round(2)}%" %></p>
+        <div class="progress" style="height: 10px; border: 1px solid black;">
+          <div class="progress-bar <%= progress_color_class(performance.accuracy) %>" role="progressbar"
+               style="width: <%= performance.accuracy.to_f %>%;"
+               aria-valuenow="<%= performance.accuracy.to_f %>" aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+      <% else %>
+        <p class="text-muted">Progress: N/A</p>
+      <% end %>
+    </div>
+
+    <!-- Time & Completion box -->
+    <div class="p-3 rounded" style="background: rgba(0, 0, 0, 0.5); color: white;">
+      <p class="mb-1"><strong>Time Spent:</strong> <%= performance.time ? "#{performance.time.round(1)}s" : "N/A" %></p>
+      <p class="mb-0"><strong>Completed:</strong> <%= performance.completed ? "✅" : "❌" %></p>
+    </div>
+  </div>
+</div>

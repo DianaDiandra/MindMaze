@@ -1,130 +1,58 @@
-<div class="container d-flex justify-content-center m-4">
-  <div style="background-image "id="home-bg"></div>
-  <div class="d-flex flex-column align-self-center rounded p-3">
-    <h1 class="my-font text-4xl font-bold mb-6">Play <%= @game.name %></h1>
+<div id="home-bg"></div><div class="container py-5" style="min-height: 100vh;">
 
-    <p class="mt-4">
-      <%= @game.content %>
-    </p>
+  <!-- Game title and description -->
+  <div class="text-center mb-4">
+    <h1 class="my-font text-4xl font-bold mb-4">Play <%= @game.name %></h1>
 
-    <button type="button" class="form-submit-button2 w-100" data-bs-toggle="modal" data-bs-target="#performanceModal">Submit Game Performance</button>
-
-  </div>
-
-  <%# TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT %>
-
-  <div>
-    <% if @game.embed_link.present? && @game.embed_link.include?("cognifit") %>
-
-      <div id="cogniFitContent" class="mx-auto" style="height: 600px;">
-      </div>
-      <button id="launch-game-button" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
-        Launch Game
-      </button>
-
-      <script src="https://js.cognifit.com/2025-05-30_1011_witchking/html5Loader.js">
-      </script>
-      <script>
-        document.getElementById("launch-game-button").addEventListener("click", function () {
-          html5Loader.launchGame("<%= @game.embed_link %>", "cogniFitContent");
-        });
-      </script>
-
-    <% elsif @game.embed_link.present? %>
-    <%# GITHUB GAMES %>
-      <% url = @game.embed_link %>
-
-  <div class="container game-container" data-controller="track-time">
-    <div class="container game-container d-flex" data-controller="game">
-
-      <div class="game-box">
-        <iframe class="game-frame" id="game-frame" sandbox="allow-scripts allow-same-origin allow-forms" width="700" height="700" frameborder="0" src="<%= url %>"></iframe>
-      </div>
+    <div class="game-description-box mt-4">
+      <p><%= simple_format(@game.content) %></p>
     </div>
   </div>
 
+  <!-- Game area -->
+  <% if @game.embed_link.present? && @game.embed_link.include?("cognifit") %>
+    <div class="text-center">
+      <div id="cogniFitContent" class="mx-auto" style="height: 600px;"></div>
+      <button id="launch-game-button" class="btn btn-primary mt-4">Launch Game</button>
+    </div>
+
+    <script src="https://js.cognifit.com/2025-05-30_1011_witchking/html5Loader.js"></script>
     <script>
-      window.addEventListener("message", function(event) {
-        console.log("Message received:", event);
-        // const ol = document.getElementById("score-list");
-        // const score = event.data.value;
-        // console.log(ol.children);
-        // const existingScoresArray = Array.from(ol.children)
-        // const existingScores = existingScoresArray.map(child => Number.parseInt(child.textContent))
-        // console.log(existingScores);
-        // console.log(score);
-        // const scores = [...existingScores, score]
-        // const sortedScores = scores.sort((a, b) => Number(b) - Number(a));
-        // console.log(sortedScores)
-        // const newScores = sortedScores.map(score => {
-        //   return `<li>${score}</li>`
-        // }).slice(0, 5).join("");
-        // console.log(newScores)
-        // ol.innerHTML = newScores
-        // For testing only: skip origin check
-        if (event.data.type === "score") {
-          document.getElementById("score-display").textContent = "Score: " + event.data.value;
-        }
+      document.getElementById("launch-game-button").addEventListener("click", function () {
+        html5Loader.launchGame("<%= @game.embed_link %>", "cogniFitContent");
       });
-
-
-  // const highScores = []
-  // highScores.sort();
-
-  // if (score > highScores.findLast) {
-  //   high_scores.findLast = score;
-  //   highScores.sort;
-  // }
-
-
-
     </script>
+
+  <% elsif @game.embed_link.present? %>
+    <div class="d-flex justify-content-center mt-4">
+      <iframe class="game-frame" id="game-frame" sandbox="allow-scripts allow-same-origin allow-forms"
+              width="700" height="700" frameborder="0" src="<%= @game.embed_link %>"></iframe>
+    </div>
   <% else %>
-    <p class="text-red-600 font-semibold">No playable version available for this game.</p>
+    <p class="text-danger">No playable version available for this game.</p>
   <% end %>
 
-
-
-<%# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX %>
-<%# <% url = @game.embed_link %>
-
- <%# <div class="container game-container d-flex" data-controller="game">
-    <div class="game-box">
-      <iframe class="game-frame" sandbox="allow-scripts allow-same-origin allow-forms" width="700" height="700" frameborder="0" src="<%= url %>
-      <%# </iframe> %>
-    <%# </div>
-
-    <div class="container score-container" style="margin-top 20px;">
-      <h3 class="score-container">Score: 0</h3>
-      <br> %>
-      <%# <h4 class="best-container"></h4> %>
-
-    <%# </div>
-  </div> %>
-
-
-<%# <div class="position-relative" style="min-height: 10vh;">
-  <div class="fixed-bottom d-flex p-3 ps-2">
-    <button type="button" class="btn btn-primary" style="margin-left: 50px;" data-bs-toggle="modal" data-bs-target="#performanceModal" id="games-submit-performance">
-      Log My Performance
+  <!-- Button -->
+  <div class="text-center mt-4">
+    <button type="button" class="form-submit-button2 w-100" data-bs-toggle="modal" data-bs-target="#performanceModal">
+      Submit Game Performance
     </button>
   </div>
-</div> %>
 
-  <div class="modal fade" id="performanceModal" tabindex="-1" aria-labelledby="performanceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content rounded-2xl shadow-lg">
-        <div class="modal-header">
-          <h5 class="modal-title text-xl font-bold" id="performanceModalLabel">Record Performance</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+</div> <!-- END of main container -->
 
-        <div class="modal-body">
-          <div class="centered-form-wrapper">
-            <div class="form-container" data-controller="game">
-              <%= render "performances/form", target: @target, performance: @performance, game: @game %>
-            </div>
-          </div>
+
+<!-- Modal (outside main container!) -->
+<div class="modal fade" id="performanceModal" tabindex="-1" aria-labelledby="performanceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-2xl shadow-lg">
+      <div class="modal-header">
+        <h5 class="modal-title text-xl font-bold" id="performanceModalLabel">Record Performance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-container" data-controller="game">
+          <%= render "performances/form", target: @target, performance: @performance, game: @game %>
         </div>
       </div>
     </div>

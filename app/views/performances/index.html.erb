@@ -1,46 +1,15 @@
-<div class="target-contain">
-  <div class="my-page-wrapper">
-    <div class="centered-form-wrapper">
-      <div class="flex justify-center items-center min-h-screen bg-gradient-to-b from-indigo-100 via-white to-blue-100">
-        <div class="form-container text-center w-full px-6 max-w-6xl">
+<div class="container my-5">
+  <h1 class="mb-4 text-center text-primary">Your Game Performances</h1>
 
-          <header class="bg-white border-b py-6 mb-10 shadow-md rounded-xl">
-            <div class="flex justify-center">
-              <%= image_tag("game1.svg", alt: "Brain icon", width: 120, height: 120, class: "mx-auto animate-bounce") %>
-            </div>
-          </header>
-
-          <h2 class="typewriter text-4xl font-bold text-indigo-800 mb-12 tracking-tight">
-            🎯 Your Game Performances
-          </h2>
-
-          <div class="space-y-10">
-            <% @performances.group_by(&:game).each do |game, performances| %>
-              <div>
-                <h3 class="text-2xl font-semibold text-indigo-700 mb-4 text-left"><%= game.name %></h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  <% performances.each do |performance| %>
-                    <div class="bg-white border border-blue-200 rounded-2xl p-5 shadow hover:shadow-xl transition duration-300 text-left">
-                      <p class="text-sm text-gray-600 mb-2"><strong>Description:</strong> <%= performance.description %></p>
-                      <p class="text-sm text-gray-600 mb-2"><strong>Category:</strong> <%= game.category %></p>
-                      <p class="text-sm text-green-600 font-semibold mb-2"><strong>Score:</strong> <%= performance.score %></p>
-                      <p class="text-sm text-green-600 font-semibold mb-2"><strong>Accuracy:</strong> <%= performance.accuracy %></p>
-                      <p class="text-sm text-gray-600 mb-2">
-                        <strong>Completed:</strong> <%= performance.completed ? "✅ Yes" : "❌ No" %>
-                      </p>
-                      <p class="text-sm text-gray-600 mb-1"><strong>Date:</strong> <%= performance.created_at.strftime("%B %d, %Y") %></p>
-                      <p class="text-sm text-gray-600"><strong>Time Spent:</strong> <%= performance.time %> minutes</p>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-
+  <% if @performances.any? %>
+    <div class="row">
+      <% @performances.each do |performance| %>
+        <div class="col-md-6 col-lg-4">
+          <%= render partial: "performance_card", locals: { performance: performance } %>
         </div>
-      </div>
+      <% end %>
     </div>
-  </div>
-
-  <img src="https://media.tenor.com/uCi8SyPb7bQAAAAi/brain-hannover.gif" alt="Corner Brain GIF" class="corner-gif">
+  <% else %>
+    <p class="text-center text-muted">No performances logged yet.</p>
+  <% end %>
 </div>

@@ -61,50 +61,51 @@
 }
 
 .description-card {
-  display: none !important; /* Force hidden by default */
+  display: none !important;
   position: absolute;
   top: 100%;
   left: 10px;
   right: 10px;
   z-index: 100;
-  background: rgba(119, 70, 174, 0.9); /* Purple with 90% opacity */
-  backdrop-filter: blur(8px);
+  background: rgba(40, 1, 59, 0.9);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.18);
   margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &:not(.hidden) {
+    display: block !important;
+    opacity: 1;
+  }
 
   h3 {
     color: white;
-    font-weight: 600;
     margin-bottom: 12px;
-  }
-
-  p {
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.5;
   }
 
   .close-description {
     color: white;
-    background: rgba(255, 255, 255, 0.2);
+    background: none;
     border: none;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }
+
+
+
+
+
+
+.description-card.visible {
+  display: block;
+}
+
 
 
 .game-card-container {
@@ -117,15 +118,24 @@
 }
 
 
-.description-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .close-description {
   background: none;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0.25rem;
+}
+
+.game-description-box {
+  background: rgba(119, 70, 174, 0.85); // rich purple with transparency
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: white;
+  line-height: 1.6;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+
+  p {
+    margin-bottom: 0;
+  }
 }
