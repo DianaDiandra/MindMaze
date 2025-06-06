@@ -11,9 +11,12 @@ require 'httparty'
 require "json"
 require "open-uri"
 
-User.destroy_all
+puts " Clearing old data..."
+Performance.destroy_all
+Target.destroy_all
 Game.destroy_all
 Goal.destroy_all
+User.destroy_all
 
 users_data = [
   {
@@ -174,34 +177,41 @@ end
 puts "#{Game.count} games - #{Goal.count} goals"
 
 # seeding targets
-puts "🌟 Creating 8 styled performances with visual diversity..."
+
+puts " Creating 8 styled performances with visual diversity..."
+
+puts "✅ Creating 8 styled performances with visual diversity..."
 
 sample_descriptions = [
   "Heard eating spinach helps with focus, I’ll also try to sleep more.",
   "Really fun logic puzzle. I’m getting faster!",
   "Kept getting distracted, will try again later.",
   "Loved the color scheme, not sure about the strategy yet.",
-  "Scored better today — might be the coffee ☕",
+  "Scored better today, might be the coffee ☕️",
   "Tried a new method, kind of worked. Needs tweaking.",
   "This was surprisingly difficult but satisfying.",
-  "Beat my old score! 🎉 So proud."
+  "Beat my old score! So proud."
 ]
 
-targets = Target.all.sample(8)
-games = Game.all.sample(3)
+targets = Target.all.to_a
+games   = Game.all.to_a
 
-8.times do |i|
-  Performance.create!(
-    target: targets[i % targets.size],
-    game: games[i % games.size],
-    description: sample_descriptions.sample,
-    accuracy: rand(1..100).round(2),
-    score: rand(250..850),
-    time: rand(20.0..120.0).round(1),
-    completed: [true, false].sample,
-    created_at: rand(1..6).days.ago,
-    updated_at: Time.now
-  )
+if targets.empty? || games.empty?
+  puts "❌ No targets or games found. Skipping performance creation."
+else
+  8.times do |i|
+    Performance.create!(
+      target: targets[i % targets.size],
+      game: games[i % games.size],
+      description: sample_descriptions.sample,
+      accuracy: rand(1..100).round(2),
+      score: rand(250..850),
+      time: rand(20.0..120.0).round(1),
+      completed: [true, false].sample,
+      created_at: rand(1..6).days.ago,
+      updated_at: Time.now
+    )
+  end
+
+  puts "✅ 8 performances created!"
 end
-
-puts "✅ 8 performances created!"

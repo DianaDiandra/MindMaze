@@ -6,28 +6,28 @@
   <%= f.hidden_field :game_id, value: game&.id %>
 
   <div class="mb-3">
-    <%= f.input :description, label: "Game Description", input_html: { class: "form-control"}, placeholder: "My notes..."  %>
+    <%= f.input :description, label: "Game Description", input_html: { class: "form-control"}, placeholder: "My notes..." %>
   </div>
 
   <div class="mb-3">
-    <%= f.input :final_score, label: "Final Score", input_html: {
+    <%= f.input :score, label: "Best Score", input_html: {
       class: "form-control",
-      value: 10000,
-      readonly: true,
-      disabled: true
+      data: { game_target: "score" }
     } %>
   </div>
 
   <div class="mb-3">
-    <%= f.input :score, label: "Best Score", input_html: { class: "form-control", data: { game_target: "score" } } %>
+    <%= f.input :last_score, label: "Current Score", input_html: {
+      class: "form-control",
+      data: { game_target: "lastScore" }
+    } %>
   </div>
 
   <div class="mb-3">
-    <%= f.input :score, label: "Last Score", input_html: { class: "form-control", data: { game_target: "lastScore" } } %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.input :accuracy, label: "Progress %", input_html: { class: "form-control", data: { game_target: "percentage" } } %>
+    <%= f.input :accuracy, label: "Progress %", input_html: {
+      class: "form-control",
+      data: { game_target: "percentage" }
+    } %>
   </div>
 
   <div class="mb-3">

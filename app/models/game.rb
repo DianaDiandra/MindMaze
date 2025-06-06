@@ -31,7 +31,7 @@ class Game < ApplicationRecord
         model: "gpt-4o-mini",
         messages: [{
           role: "user", content: "Give me an infomative yet brief #{description} for the
-           game's #{name} and #{category}.Give me only the text of description alonside with the name and category of the name in bold, without any of your own answer like 'Here is a simple description'. At the end, add in italic Powered By ChatGPT"
+           game's #{name} and #{category}.Give me only the text of description alonside with the name and category , without any of your own answer like 'Here is a simple description'. Don t put any stars or all. At the end, add A Famous motivating quote"
         }]
       })
     new_content = chatgpt_response["choices"][0]["message"]["content"]

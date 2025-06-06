@@ -1,10 +1,26 @@
-<div class="container my-5">
-  <h1 class="mb-4 text-center text-primary">Your Game Performances</h1>
+<div class="position-absolute start-0 pt-5 ps-4" style="top: 150px; z-index: 10;">  <div class="d-flex flex-column gap-3">
+    <div class="text-center">
+      <div class="cube cube-reasoning mb-1"></div>
+      <small class="fw-bold text-purple">Reasoning</small>
+    </div>
+    <div class="text-center">
+      <div class="cube cube-reaction mb-1"></div>
+      <small class="fw-bold text-warning">Time<br>Reaction</small>
+    </div>
+    <div class="text-center">
+      <div class="cube cube-logic mb-1"></div>
+      <small class="fw-bold text-success">Logic</small>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5">
+  <h2 class="text-center text-primary mb-5">My Game Performances</h2>
 
   <% if @performances.any? %>
-    <div class="row">
+    <div class="row justify-content-center">
       <% @performances.each do |performance| %>
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 mb-5">
           <%= render partial: "performance_card", locals: { performance: performance } %>
         </div>
       <% end %>

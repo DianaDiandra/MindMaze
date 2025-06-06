@@ -4,12 +4,14 @@ class PerformancesController < ApplicationController
   before_action :set_performance, only: [:show]
 
   helper PerformancesHelper
-  
+
   def index
   @target = Target.find(params[:target_id])
   @performances = @target.performances.includes(:game).order(created_at: :desc)
   # @performances = @target.performances.includes(:game)
   end
+
+
 
   def new
     @performance = @target.performances.new
@@ -40,6 +42,6 @@ class PerformancesController < ApplicationController
   end
 
   def performance_params
-    params.require(:performance).permit(:description, :accuracy, :score, :time, :completed, :game_id)
+    params.require(:performance).permit(:description, :accuracy, :score, :last_score, :time, :completed, :game_id)
   end
 end
