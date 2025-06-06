@@ -49,9 +49,10 @@
                 </li>
                 <% if current_user&.targets&.any? %>
                   <li>
-                    <%= link_to "My Performances", target_performances_path(current_user.targets.last), class: "dropdown-item" %>
+                    <%# <%= link_to "My Performances", target_performances_path(current_user.targets.last), class: "dropdown-item" %>
+                    <%= link_to "My Performances", performances_path, class: "dropdown-item" %>
                   </li>
-                <% end %>                
+                <% end %>
                   </li>
                 <li>
                   <hr class="dropdown-divider">

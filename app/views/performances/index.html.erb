@@ -1,4 +1,46 @@
+<div class="container mb-5">
+  <div class="bg-light p-4 rounded shadow-sm border">
+    <%= form_with url: performances_path, method: :get, local: true, class: "row gy-3 gx-4 align-items-end" do |f| %>
+
+      <!-- Game Name Dropdown -->
+      <div class="col-md-4">
+        <%= label_tag :game_name, "Game Name", class: "form-label fw-bold" %>
+        <%= select_tag :game_name,
+          options_for_select([""] + @game_names, params[:game_name]),
+          class: "form-select" %>
+      </div>
+
+      <!-- Category Dropdown -->
+      <div class="col-md-3">
+        <%= label_tag :category, "Category", class: "form-label fw-bold" %>
+        <%= select_tag :category,
+          options_for_select(["", "Reasoning", "Time Reaction", "Logic"], params[:category]),
+          class: "form-select" %>
+      </div>
+
+      <!-- Date Field -->
+      <div class="col-md-3">
+        <%= label_tag :date, "From Date", class: "form-label fw-bold" %>
+        <%= date_field_tag :date, params[:date], class: "form-control" %>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-md-2 text-end">
+        <%= submit_tag "Filter", class: "btn btn-primary w-100" %>
+      </div>
+    <% end %>
+
+    <!-- Reset Button -->
+    <div class="text-end mt-3">
+      <%= link_to "Reset Filters", performances_path, class: "btn btn-outline-secondary btn-sm" %>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="position-absolute start-0 pt-5 ps-4" style="top: 150px; z-index: 10;">  <div class="d-flex flex-column gap-3">
+
     <div class="text-center">
       <div class="cube cube-reasoning mb-1"></div>
       <small class="fw-bold text-purple">Reasoning</small>

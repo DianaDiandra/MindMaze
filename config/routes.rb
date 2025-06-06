@@ -16,13 +16,15 @@ Rails.application.routes.draw do
 
   resources :targets, only: %i[index new create show] do
     # resources :goals, only: %i[new create] ==>seed file
-    resources :performances, only: %i[index show new create]
+    resources :performances, only: %i[show new create]
     resources :games, only: %i[show index]
   end
 
   get "my_profile", to: "profiles#my_profile"
   get "/users/search", to: "users#search"
   resources :profiles, only: [:show], param: :username
+  resources :performances, only: %i[index]
+
   # post '/cognifit/token', to: 'cognifit#token'
   # post 'cognifit/get_access_token', to: 'cognifit#get_access_token'
   # post "targets/:target_id/games/:key/play", to: "games#play", as: :play_game
