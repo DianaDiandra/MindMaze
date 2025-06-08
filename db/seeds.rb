@@ -65,7 +65,7 @@ users = users_data.map do |data|
   user = User.new(data.except(:avatar_url))
   user.avatar.attach(io: file, filename: "#{data[:username]}.jpg", content_type: "image/jpg")
   user.save!
-  puts "✅ Done"
+  puts "Done"
   user
 end
 
@@ -110,7 +110,7 @@ games = [
   )
 ]
 
-# Create Cognifit games if API available
+
 begin
   puts "Fetching Cognifit games..."
   response = HTTParty.get("https://api.cognifit.com/programs/tasks", query: {
@@ -135,7 +135,7 @@ begin
     puts "Seeded #{cognifit_games.size} Cognifit games."
   end
 rescue => e
-  puts "⚠️ Failed to fetch Cognifit games: #{e.message}"
+  puts " Failed to fetch Cognifit games: #{e.message}"
 end
 
 puts "Total games: #{Game.count}"
@@ -158,7 +158,7 @@ sample_descriptions = [
   "Really fun logic puzzle. I’m getting faster!",
   "Kept getting distracted, will try again later.",
   "Loved the color scheme, not sure about the strategy yet.",
-  "Scored better today, might be the coffee ☕️",
+  "Scored better today, might be the coffee",
   "Tried a new method, kind of worked. Needs tweaking.",
   "This was surprisingly difficult but satisfying.",
   "Beat my old score! So proud."
@@ -185,7 +185,7 @@ User.find_each do |user|
     )
   end
 
-  puts "✅ Seeded 8 performances for #{user.username}"
+  puts "Seeded 8 performances for #{user.username}"
 end
 
 puts "All performances seeded!"

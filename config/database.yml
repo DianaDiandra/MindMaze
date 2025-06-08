@@ -83,3 +83,12 @@ production:
   database: mind_maze_production
   username: mind_maze
   password: <%= ENV["MIND_MAZE_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+
+
+queue:
+  <<: *default
+  database: mindmaze_queue_production
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
